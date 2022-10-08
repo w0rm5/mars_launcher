@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mars Launcher</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            min-width: 300px;
+            max-width: 100%;
+            position: relative;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="codeForm">
+            <div class="my-3">
+                <label for="mars_url" class="form-label">Mars Url</label>
+                <input type="text" class="form-control" id="mars_url" placeholder="URL" />
+            </div>
+            <div class="my-3">
+                <div class="row">
+                    <div class="col">
+                        <label for="gpid" class="form-label">Provider Id</label>
+                        <input type="text" class="form-control" id="gpid" name="gpid" placeholder="GPID" />
+                    </div>
+                    <div class="col">
+                        <label for="game_id" class="form-label">Game Id</label>
+                        <input type="text" class="form-control" id="game_id" name="game_id" placeholder="Game Id" />
+                    </div>
+                </div>
+            </div>
+            <div class="my-3">
+                <div class="row">
+                    <div class="col">
+                        <label for="device" class="form-label">Device</label>
+                        <select id="device" name="lang" class="form-select" aria-label="Device">
+                            <option selected value="d">Desktop</option>
+                            <option value="m">Mobile</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="lang" class="form-label">Language</label>
+                        <select id="lang" name="lang" class="form-select" aria-label="Language">
+                            <option selected value="en">English</option>
+                            <option value="zh-tw">Traditional Chinese</option>
+                            <option value="zh-cn">Simplified Chinese</option>
+                            <option value="ja-jp">Japanese</option>
+                            <option value="ko-kr">Korean</option>
+                            <option value="th-th">Thai</option>
+                            <option value="vi-vn">Vietnamese</option>
+                            <option value="id-id">Indonesian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="my-3">
+                <div class="row">
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-outline-primary">Launch</button>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-check">
+                            <input class="form-check-input" name="private_browser" type="checkbox" id="private_browser">
+                            <label class="form-check-label" for="private_browser">
+                                Launch in private
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
