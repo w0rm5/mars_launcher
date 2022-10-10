@@ -14,8 +14,8 @@ if(codeForm) {
             return;
         }
 
-        if(marsUrl.startsWith("//")) {
-            marsUrl = marsUrl.substring(2);
+        while(marsUrl.startsWith("/")) {
+            marsUrl = marsUrl.substring(1);
         }
 
         let url = "http://" + marsUrl + "&gpid=" + gpid + "&gameid=" + gameId + "&device=" + device + "&lang=" + langauge;
