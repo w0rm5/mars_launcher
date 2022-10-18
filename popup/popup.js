@@ -6,9 +6,11 @@ if (codeForm) {
 
         let username = document.getElementById("username").value;
         let gpid = document.getElementById("gpid").value;
+        let company_key = document.getElementById("company_key").value;
         let gameId = document.getElementById("game_id").value;
         let device = document.getElementById("device").value;
         let langauge = document.getElementById("lang").value;
+        let error_msg = document.getElementById("error_msg");
 
         if (!username.trim() || isNaN(gpid) || isNaN(gameId)) {
             return;
@@ -19,26 +21,26 @@ if (codeForm) {
             "Portfolio": "SeamlessGame",
             "IsWapSports": false,
             "KYSportsbook": false,
-            "CompanyKey": "19EC67817FFC4E87BEFB84DFB6872E49"
+            "CompanyKey": company_key
         };
 
         fetch("http://ex-api-demo-yy.568win.com/web-root/restricted/player/login.aspx", {
             method: 'POST',
-            // mode: 'cors',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(request)
         })
             .then((response) => response.json())
             .then((data) => {
-                document.getElementById("error_msg").value = data;
+
                 if (data.error.id == 0) {
-
+                    
                     let url = "http:" + data.url + "&gpid=" + gpid + "&gameid=" + gameId + "&device=" + device + "&lang=" + langauge;
-
+                    
                     let launchInPrivate = document.getElementById("private_browser").checked;
-
+                    
                     if (launchInPrivate) {
                         chrome.windows.getAll({ populate: false, windowTypes: ['normal'] }, function (windows) {
                             for (let w of windows) {
@@ -52,13 +54,13 @@ if (codeForm) {
                         return;
                     }
                     chrome.tabs.create({ url: url });
+                } else {
+                    error_msg.innerHTML = data.error.msg;
                 }
 
             })
             .catch((error) => {
-                document.getElementById("error_msg").value = error;
+                error_msg.innerHTML  = JSON.stringify(error);
             });
-
-
     }
 }

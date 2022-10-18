@@ -18,9 +18,6 @@
     <div class="container">
         <form id="codeForm">
             <div class="my-3">
-                <label id="error_msg" class="form-label">Er</label>
-            </div>
-            <div class="my-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" placeholder="Username" />
             </div>
@@ -37,10 +34,17 @@
                 </div>
             </div>
             <div class="my-3">
+                <label for="company_key" class="form-label">Company Key</label>
+                <select id="company_key" name="company_key" class="form-select" aria-label="Company Key">
+                    <option selected value="19EC67817FFC4E87BEFB84DFB6872E49">Cssg</option>
+                    <option value="5C0AAB8BB7874164B08CAD39A71A2C8E">QA</option>
+                </select>
+            </div>
+            <div class="my-3">
                 <div class="row">
                     <div class="col">
                         <label for="device" class="form-label">Device</label>
-                        <select id="device" name="lang" class="form-select" aria-label="Device">
+                        <select id="device" name="device" class="form-select" aria-label="Device">
                             <option selected value="d">Desktop</option>
                             <option value="m">Mobile</option>
                         </select>
@@ -75,6 +79,9 @@
                     </div>
                 </div>
                 
+            </div>
+            <div class="my-3">
+                <label id="error_msg" class="form-label text-danger"></label>
             </div>
         </form>
     </div>
