@@ -15,8 +15,8 @@ const RequestData = {
             company_key: "7F87649F7AB04B25AC511AA366A31396",
         },
         qa: {
-            url: "",
-            company_key: "",
+            url: "http://mirana-yy-prod-c171.568winex.com/web-root/restricted/player/login.aspx",
+            company_key: "7F87649F7AB04B25AC511AA366A31396",
         },
     }
 }
