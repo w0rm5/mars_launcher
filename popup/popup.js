@@ -1,13 +1,37 @@
-const codeForm = document.getElementById("codeForm");
+const RequestData = {
+    demo: {
+        cssg: {
+            url: "http://ex-api-demo-yy.568win.com/web-root/restricted/player/login.aspx",
+            company_key: "19EC67817FFC4E87BEFB84DFB6872E49",
+        },
+        qa: {
+            url: "http://ex-api-demo-yy.568win.com/web-root/restricted/player/login.aspx",
+            company_key: "5C0AAB8BB7874164B08CAD39A71A2C8E",
+        }
+    },
+    yy2: {
+        cssg: {
+            url: "http://ex-api-yy2.ttbbyyllyy.com/web-root/restricted/player/login.aspx",
+            company_key: "7F87649F7AB04B25AC511AA366A31396",
+        },
+        qa: {
+            url: "",
+            company_key: "",
+        },
+    }
+}
 
-if (codeForm) {
-    codeForm.onsubmit = function (e) {
+const CodeForm = document.getElementById("code_form");
+
+if (CodeForm) {
+    CodeForm.onsubmit = function (e) {
         e.preventDefault();
 
-        let username = document.getElementById("username").value;
-        let gpid = document.getElementById("gpid").value;
-        let company_key = document.getElementById("company_key").value;
-        let gameId = document.getElementById("game_id").value;
+        let username = document.getElementById("yy_username").value;
+        let gpid = document.getElementById("yy_gpid").value;
+        let gameId = document.getElementById("yy_game_id").value;
+        let team = document.getElementById("yy_team").value;
+        let env = document.getElementById("yy_env").value;
         let device = document.getElementById("device").value;
         let langauge = document.getElementById("lang").value;
         let error_msg = document.getElementById("error_msg");
@@ -21,17 +45,18 @@ if (codeForm) {
             "Portfolio": "SeamlessGame",
             "IsWapSports": false,
             "KYSportsbook": false,
-            "CompanyKey": company_key
+            "CompanyKey": RequestData[env][team].company_key
         };
 
-        fetch("http://ex-api-demo-yy.568win.com/web-root/restricted/player/login.aspx", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(request)
-        })
+        if(RequestData[env][team].url) {
+            fetch(RequestData[env][team].url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(request)
+            })
             .then((response) => response.json())
             .then((data) => {
 
@@ -62,5 +87,6 @@ if (codeForm) {
             .catch((error) => {
                 error_msg.innerHTML  = JSON.stringify(error);
             });
+        }
     }
 }

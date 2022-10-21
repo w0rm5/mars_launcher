@@ -16,29 +16,41 @@
 
 <body>
     <div class="container">
-        <form id="codeForm">
+        <form id="code_form">
             <div class="my-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Username" />
+                <label for="yy_username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="yy_username" id="yy_username" placeholder="Username" />
             </div>
             <div class="my-3">
                 <div class="row">
                     <div class="col">
-                        <label for="gpid" class="form-label">Provider Id</label>
-                        <input type="text" class="form-control" id="gpid" name="gpid" placeholder="GPID" />
+                        <label for="yy_gpid" class="form-label">Provider Id</label>
+                        <input type="text" class="form-control" id="yy_gpid" name="yy_gpid" placeholder="GPID" />
                     </div>
                     <div class="col">
-                        <label for="game_id" class="form-label">Game Id</label>
-                        <input type="text" class="form-control" id="game_id" name="game_id" placeholder="Game Id" />
+                        <label for="yy_game_id" class="form-label">Game Id</label>
+                        <input type="text" class="form-control" id="yy_game_id" name="yy_game_id"
+                            placeholder="Game Id" />
                     </div>
                 </div>
             </div>
             <div class="my-3">
-                <label for="company_key" class="form-label">Company Key</label>
-                <select id="company_key" name="company_key" class="form-select" aria-label="Company Key">
-                    <option selected value="19EC67817FFC4E87BEFB84DFB6872E49">Cssg</option>
-                    <option value="5C0AAB8BB7874164B08CAD39A71A2C8E">QA</option>
-                </select>
+                <div class="row">
+                    <div class="col">
+                        <label for="yy_team" class="form-label">Company Key</label>
+                        <select id="yy_team" name="yy_team" class="form-select" aria-label="Company Key">
+                            <option selected value="cssg">Cssg</option>
+                            <option value="qa">QA</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="yy_env" class="form-label">Environment</label>
+                        <select id="yy_env" name="yy_env" class="form-select" aria-label="Language">
+                            <option selected value="demo">UAT</option>
+                            <option value="yy2">Production YY2</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="my-3">
                 <div class="row">
@@ -78,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             <div class="my-3">
                 <label id="error_msg" class="form-label text-danger"></label>
