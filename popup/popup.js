@@ -27,30 +27,32 @@ if (CodeForm) {
     CodeForm.onsubmit = function (e) {
         e.preventDefault();
 
-        let username = document.getElementById("yy_username").value;
-        let gpid = document.getElementById("yy_gpid").value;
-        let gameId = document.getElementById("yy_game_id").value;
-        let team = document.getElementById("yy_team").value;
-        let env = document.getElementById("yy_env").value;
-        let device = document.getElementById("device").value;
-        let langauge = document.getElementById("lang").value;
-        let error_msg = document.getElementById("error_msg");
-        let betcode = document.getElementById("yy_betcode").value;
+        let launchRequest = {}
+        launchRequest.username = document.getElementById("yy_username").value;
+        launchRequest.gpid = document.getElementById("yy_gpid").value;
+        launchRequest.gameId = document.getElementById("yy_game_id").value;
+        launchRequest.team = document.getElementById("yy_team").value;
+        launchRequest.env = document.getElementById("yy_env").value;
+        launchRequest.device = document.getElementById("device").value;
+        launchRequest.langauge = document.getElementById("lang").value;
+        launchRequest.error_msg = document.getElementById("error_msg");
+        launchRequest.betcode = document.getElementById("yy_betcode").value;
 
-        if (!username.trim() || isNaN(gpid) || isNaN(gameId)) {
+        if (!launchRequest.username.trim() || isNaN(launchRequest.gpid) || isNaN(launchRequest.gameId)) {
             return;
         }
 
         let request = {
-            "Username": username,
+            "Username": launchRequest.username,
             "Portfolio": "SeamlessGame",
             "IsWapSports": false,
             "KYSportsbook": false,
-            "CompanyKey": RequestData[env][team].company_key
+            "CompanyKey": RequestData[launchRequest.env][launchRequest.team].company_key
         };
 
-        if(RequestData[env][team].url) {
-            fetch(RequestData[env][team].url, {
+        if(RequestData[launchRequest.env][launchRequest.team].url) {
+            console.log(RequestData[launchRequest.env][launchRequest.team].url);
+            fetch(RequestData[launchRequest.env][launchRequest.team].url, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -63,24 +65,30 @@ if (CodeForm) {
 
                 if (data.error.id == 0) {
                     
-                    let url = "http:" + data.url + "&gpid=" + gpid + "&gameid=" + gameId + "&device=" + device + "&lang=" + langauge;
+                    let url = "http:" + data.url + "&gpid=" + launchRequest.gpid 
+                                + "&gameid=" + launchRequest.gameId 
+                                + "&device=" + launchRequest.device + 
+                                "&lang=" + launchRequest.langauge;
                     
-                    if(betcode) url += "&betcode=" + betcode;
+                    if(launchRequest.betcode) url += "&betcode=" + launchRequest.betcode;
 
-                    let launchInPrivate = document.getElementById("private_browser").checked;
+                    launchRequest.launchInPrivate = document.getElementById("private_browser").checked;
                     
-                    if (launchInPrivate) {
+                    if (launchRequest.launchInPrivate) {
                         chrome.windows.getAll({ populate: false, windowTypes: ['normal'] }, function (windows) {
                             for (let w of windows) {
                                 if (w.incognito) {
+                                    StoreLastParams(launchRequest);
                                     chrome.tabs.create({ url: url, windowId: w.id });
                                     return;
                                 }
                             }
+                            StoreLastParams(launchRequest);
                             chrome.windows.create({ url: url, incognito: true });
                         });
                         return;
                     }
+                    StoreLastParams(launchRequest);
                     chrome.tabs.create({ url: url });
                 } else {
                     error_msg.innerHTML = data.error.msg;
@@ -88,8 +96,27 @@ if (CodeForm) {
 
             })
             .catch((error) => {
-                error_msg.innerHTML  = JSON.stringify(error);
+                error_msg.innerHTML = "Request error: " + JSON.stringify(error);
             });
         }
     }
+}
+
+window.onload = function() {
+    chrome.storage.local.get(['yy_last_params'], function(result) {
+        let lastParams = result.yy_last_params;
+        document.getElementById("yy_username").value = lastParams.username;
+        document.getElementById("yy_gpid").value = lastParams.gpid;
+        document.getElementById("yy_game_id").value = lastParams.gameId;
+        document.getElementById("yy_team").value = lastParams.team;
+        document.getElementById("yy_env").value = lastParams.env;
+        document.getElementById("device").value = lastParams.device;
+        document.getElementById("lang").value = lastParams.langauge;
+        document.getElementById("yy_betcode").value = lastParams.betcode;
+        document.getElementById("private_browser").checked = lastParams.launchInPrivate;
+    });
+}
+
+function StoreLastParams(launchRequest) {
+    chrome.storage.local.set({yy_last_params: launchRequest});
 }

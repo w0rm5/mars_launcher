@@ -15,6 +15,7 @@
     "permissions": [
         "*://*.568win.com/*",
         "*://*.568winex.com/*",
-        "*://*.ttbbyyllyy.com/*"
+        "*://*.ttbbyyllyy.com/*",
+        "storage"
     ]
 }
