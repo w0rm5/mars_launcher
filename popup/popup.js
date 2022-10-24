@@ -35,6 +35,7 @@ if (CodeForm) {
         let device = document.getElementById("device").value;
         let langauge = document.getElementById("lang").value;
         let error_msg = document.getElementById("error_msg");
+        let betcode = document.getElementById("yy_betcode").value;
 
         if (!username.trim() || isNaN(gpid) || isNaN(gameId)) {
             return;
@@ -64,6 +65,8 @@ if (CodeForm) {
                     
                     let url = "http:" + data.url + "&gpid=" + gpid + "&gameid=" + gameId + "&device=" + device + "&lang=" + langauge;
                     
+                    if(betcode) url += "&betcode=" + betcode;
+
                     let launchInPrivate = document.getElementById("private_browser").checked;
                     
                     if (launchInPrivate) {
