@@ -51,7 +51,7 @@ if (CodeForm) {
         };
 
         if(RequestData[launchRequest.env][launchRequest.team].url) {
-            console.log(RequestData[launchRequest.env][launchRequest.team].url);
+            
             fetch(RequestData[launchRequest.env][launchRequest.team].url, {
                 method: 'POST',
                 headers: {
